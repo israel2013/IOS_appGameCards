@@ -16,6 +16,7 @@
 @property (strong,nonatomic)Deck *deck;
 @property (strong,nonatomic)CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+- (IBAction)buttonAcerca:(UIButton *)sender;
 
 @end
 
@@ -95,4 +96,10 @@
 //    [super didReceiveMemoryWarning];
 //}
 
+- (IBAction)buttonAcerca:(UIButton *)sender {
+    UIAlertController *alerta=[UIAlertController alertControllerWithTitle:@"Juego de cartas" message:@"Israel Castaneda Luna" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action=[UIAlertAction actionWithTitle: @"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){}];
+    [alerta addAction: action];
+    [self presentViewController:alerta animated:YES completion:nil];
+}
 @end
