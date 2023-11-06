@@ -1,0 +1,22 @@
+# Archivos y directorios generados por Xcode
+.xcworkspace
+/xcuserdata
+/DerivedData
+
+# Archivos de compilación y ejecutables
+/build
+
+# Archivos específicos del sistema y configuración
+.DS_Store
+.idea
+*.swp
+
+# Archivos y directorios relacionados con dependencias
+/Pods
+/Carthage
+Podfile.lock
+Cartfile.resolved
+
+# Archivos de usuario o entorno específico
+/xcuserdata
+*.xcuserstate
