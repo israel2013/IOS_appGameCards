@@ -61,11 +61,25 @@
         Card *card = [self.game cardAtIndex:cardButtonIndex];
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backGroundImageForCard:card] forState:UIControlStateNormal];
+        
         cardButton.enabled = !card.isMatched;//Si una tarjeta coincidepodemos desactivar el botón de tarjeta correspondiente
         
      
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", self.game.score ];//Actualizar la puntuación(usando el mismo código que usamos para Flips) cada vez que actualizamos el resto de la interfaz de usuario.
+        
+        //ponemos en el label cuando exista una coincidencia
         self.label_coincidencia.text=self.game.coincidencia;
+        
+        // SI EL USUARIO TUVO 5 COINCIDENCIAS SALDRA UN ALERT
+        if(self.game.ncoincidencias == 5)
+        {
+            UIAlertController *alerta=[UIAlertController alertControllerWithTitle:@"GANASTE" message:@"Coincidieron minimo 5 cartas" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action=[UIAlertAction actionWithTitle: @"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){}];
+            [alerta addAction: action];
+            [self presentViewController:alerta animated:YES completion:nil];
+            //[self.game setNcoincidencias:0];
+
+        }
     }
 }
 /*
@@ -79,7 +93,7 @@
 
 -(UIImage *)backGroundImageForCard:(Card *)card
 {
-    return [UIImage imageNamed:card.isChosen ? @"Blank-card-hd" : @"Back-card-itl_tree"];
+    return [UIImage imageNamed:card.isChosen ? @"Blank-card-hd" : @"img_cartaReves2"];
 }
 
 //-(void)setFlipCount:(int)flipCount{

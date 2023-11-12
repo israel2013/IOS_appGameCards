@@ -8,8 +8,8 @@
 #import "CardMatchingGame.h"
 @interface CardMatchingGame()
 @property (nonatomic,readwrite) NSInteger score;
+@property (nonatomic,readwrite) NSInteger ncoincidencias;
 @property (nonatomic,readwrite) NSString *coincidencia;
-
 @property (nonatomic, strong) NSMutableArray *cards;
 @end
 @implementation CardMatchingGame
@@ -32,12 +32,16 @@
     return self;
 }
 
+//-(void)setNcoincidencias:(NSInteger)ncoincidencias{
+//    self.ncoincidencias=ncoincidencias;
+//}
+
 -(Card *)cardAtIndex:(NSUInteger)index
 {
     return (index<[self.cards count]) ? self.cards[index]:nil;
 }
-static const int MISMATCH_PENALTY = 2;
-static const int MATCH_BONUS = 4;
+static const int MISMATCH_PENALTY = 2;//cuando el usuario se equivoque se le restan 2 puntos
+static const int MATCH_BONUS = 4;// cuando haga coincidir cartas
 
 static const int COST_TO_CHOOSE = 1;
 
@@ -55,7 +59,7 @@ static const int COST_TO_CHOOSE = 1;
             //match against oother chosen cards
             
             
-//            Así que simplemente recorreremos todas las cartas del juego, buscando las que no coincidan y ya estén elegidas.
+//Así que simplemente recorreremos todas las cartas del juego, buscando las que no coincidan y ya estén elegidas.
             for(Card *otherCard in self.cards){
                // Si encontramos otra carta elegida que no coincide, comprobamos si coincide con la carta recién elegida.
                // usando tarjeta
@@ -74,11 +78,13 @@ static const int COST_TO_CHOOSE = 1;
                         self.score += matchScore *MATCH_BONUS;//Incluso podemos dar un bono a los partidos si queremos.
                         //Si coincide, marca ambos.tarjetas coincidentes como coincidentes
                         self.coincidencia = @"Coincidencia 🎖";
-                        
-                         
+                        self.ncoincidencias+=1;
                         otherCard.matched =YES;
                         card.matched = YES;
+//                        if(self.ncoincidencias == 5)
+//                            self.ncoincidencias=0;
                     } else {
+                        //si no coincide quitamos puntos
                         self.score -= MISMATCH_PENALTY;
                         otherCard.chosen = NO;//Si no coincide, “deselige” la otra tarjeta que no coincide
                         self.coincidencia = @"No coincide ❌";
@@ -93,6 +99,7 @@ static const int COST_TO_CHOOSE = 1;
                     
                 }
             }
+            //cada vez que elijamos una carta se nos va a restar nuestra puntuacion
             self.score -= COST_TO_CHOOSE;//Hagamos que elegir cartas no sea “gratuito” imponiendo un coste para elegir.
             card.chosen = YES;//marcamos como elegida
         }

@@ -15,10 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype)initWhitCardCount:(NSUInteger)count usingDeck:(Deck *)deck;//inicializa un nuevo juego
 
 -(void)chooseCardAtIndex:(NSUInteger)index;
+-(void)setNcoincidencias:(NSInteger)ncoincidencias;
 -(Card *)cardAtIndex:(NSUInteger)index;//obtener carta
 
 @property (nonatomic, readonly) NSInteger score;//marcador
 @property (nonatomic, readonly) NSString *coincidencia;//marcador
+@property (nonatomic,readonly) NSInteger ncoincidencias;
+
 
 @end
 
